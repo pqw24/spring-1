@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+  xmlns:aop="http://www.springframework.org/schema/aop"  
+  xmlns:tx="http://www.springframework.org/schema/tx"   
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+  xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="          
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd          
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd          
+      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd          
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd          
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+     >
+<!--     通过属性配置
+bean全类名，通过反射在IOC创建bean,bean中必须无有参构造函数，id唯一
+ -->
+	<bean id="helloWorld"  class="com.pqw.test.HelloWold" >
+		<property name="name" value="spring"></property>
+	</bean>
+<!-- 	通过构造方法配置bean，可以指定参数的类型，以区分重载的构造器 -->
+	<bean id="car" class="com.pqw.test.Car"  >
+		<constructor-arg value="aodi" index="0" ></constructor-arg>
+		<constructor-arg value="南京" index="1" ></constructor-arg>
+		<constructor-arg value="20000"  type="double"></constructor-arg>
+	</bean>
+	
+	<bean id="car2" class="com.pqw.test.Car" >
+		<constructor-arg value="aodi"  type="java.lang.String"></constructor-arg>
+		<constructor-arg  type="java.lang.String">
+			<value><![CDATA[<SHANGHAI*>]]></value>
+		</constructor-arg>
+		<constructor-arg value="240"  type="int"></constructor-arg>
+	</bean>
+<!-- 	value表示字面值 ref属性建立bean之间的引用关系-->
+	<bean  id="person" class="com.pqw.test.Person">
+		<property name="name" value="Tom"></property>
+		<property name="age"  value="22" ></property>
+<!-- 		<property name="car"  ref="car2" ></property> -->
+<!-- 		内部bean,不能被外部引用 -->
+		<property name="car">
+			<bean class="com.pqw.test.Car">
+				<constructor-arg value="Ford"></constructor-arg>
+				<constructor-arg value="changan"></constructor-arg>
+				<constructor-arg value="200000"></constructor-arg>
+			</bean>		
+		</property>
+	</bean>
+	
+	
+</beans> 
